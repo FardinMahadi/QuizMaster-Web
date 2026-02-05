@@ -115,11 +115,11 @@ src/main/java
 
 ## 👥 Team Members
 
-- **Mahadi Hasan Fardin** (@FardinMahadi)  
-  *Team Leader* 
-- **Tanim Saha** (@TanimSaha)  
-  *Team Member* 
+- **Mahadi Hasan Fardin** (@FardinMahadi) — *Team Leader*
+- **Tanim Saha** (@tanimsaha) - *Team Member*
 
-Department of ICT, Comilla University
+**Department:** ICT  
+**University:** Comilla University
+
 
 
