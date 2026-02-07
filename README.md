@@ -1,125 +1,41 @@
-# Online Quiz Management System
+# Online Quiz Management System - Frontend
 
 ## 📌 Project Overview
+The **Online Quiz Management System Frontend** is a React-based web application that serves as the user interface for the Online Quiz Management System. It interacts with the Java Spring Boot backend to provide a seamless experience for both administrators and students.
 
-The **Online Quiz Management System** is a Java-based web application developed as part of the **Object-Oriented Programming (OOP)** course project.
-It allows administrators to create and manage quizzes, while students can take quizzes online and receive instant results.
-The system follows **OOP principles** and is built using **Java & Spring Boot** for scalability and maintainability.
-
----
-
-## 🎯 Objectives
-
-* Apply **core OOP concepts** in a real-world project
-* Understand **layered architecture** using Spring Boot
-* Implement **CRUD operations**, authentication, and business logic
-* Design a modular and extensible quiz system
-
----
-
-## 🚀 Core Features
-
-### 🔐 Admin Module
-
-* Create and manage quizzes
-* Add multiple-choice questions
-* Define subjects/categories
-* View student quiz results
-* Control quiz time limits
-
-### 🎓 Student Module
-
-* Secure login system
-* Select subjects and available quizzes
-* Attempt quizzes within a fixed time
-* View results immediately after submission
-
-### 🧮 Automatic Scoring
-
-* Quiz answers are evaluated automatically
-* Scores are calculated instantly upon completion
-
-### ⏱ Timer Functionality
-
-* Each quiz has a predefined time limit
-* Quiz auto-submits when time expires
-
----
-
-## 🧱 OOP Concepts Used
-
-* **Encapsulation** – Private fields with getters/setters
-* **Inheritance** – Base user classes extended by Admin & Student
-* **Polymorphism** – Flexible service implementations
-* **Abstraction** – Interfaces for service layers
-* **Modularity** – Separation of concerns (Controller, Service, Repository)
-
----
+## 🚀 Features
+- **Admin Dashboard**: Manage quizzes, questions, and users.
+- **Student Portal**: Take quizzes, view results, and track progress.
+- **Real-time Evaluation**: Instant feedback on quiz submission.
+- **Responsive Design**: Accessible on various devices.
 
 ## 🛠 Technology Stack
+- **Library**: React.js
+- **Styling**: CSS / Styled Components (To be decided)
+- **State Management**: Context API / Redux (To be decided)
+- **Routing**: React Router
+- **HTTP Client**: Axios / Fetch
 
-* **Language:** Java
-* **Framework:** Spring Boot
-* **Architecture:** MVC (Model-View-Controller)
-* **Database:** MySQL / H2 (configurable)
-* **ORM:** Spring Data JPA (Hibernate)
-* **Build Tool:** Maven
-* **IDE:** IntelliJ IDEA / Eclipse
-
----
-
-## 📂 Project Structure
-
-```
-src/main/java
- ├── controller
- ├── service
- ├── repository
- ├── model
- └── OnlineQuizApplication.java
-```
-
----
-
-## ⚙️ Setup & Run Instructions
-
-1. Clone the repository
-
+## ⚙️ Setup Instructions
+1. Clone the repository.
+2. Navigate to the frontend directory.
+3. Install dependencies:
    ```bash
-   git clone https://github.com/your-username/online-quiz-system.git
+   npm install
    ```
-2. Open the project in your IDE
-3. Configure database settings in `application.properties`
-4. Run the Spring Boot application
-5. Access the app via browser
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
----
-
-## 📚 Academic Context
-
-* **Course:** Object-Oriented Programming (OOP)
-* **Level:** Undergraduate
-* **Purpose:** Academic project submission
-* **Focus:** Java, OOP principles, backend development
-
----
-
-## 🔮 Future Enhancements
-
-* Role-based authentication (Spring Security)
-* Question randomization
-* Detailed performance analytics
-* REST API support for frontend integration
+## � Backend Interaction
+This frontend communicates with the backend API running on `http://localhost:8080` (default Spring Boot port). Ensure the backend is running for full functionality.
 
 ---
 
 ## 👥 Team Members
-
 - **Mahadi Hasan Fardin** (@FardinMahadi) — *Team Leader*
 - **Tanim Saha** (@tanimsaha) - *Team Member*
 
 **Department:** ICT  
 **University:** Comilla University
-
-
-
