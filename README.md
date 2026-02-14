@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Online Quiz Management System - Web Frontend
 
-## Getting Started
+## 📌 Project Overview
+The web frontend for the Online Quiz Management System, built with **Next.js**, **Tailwind CSS**, and **Shadcn UI**. It provides a comprehensive dashboard for both students and administrators.
 
-First, run the development server:
+## 🚀 Features
+- **Student Dashboard**: Browse subjects, view available quizzes, and attempt them.
+- **Admin Dashboard**: Manage subjects, quizzes, and questions.
+- **Real-time Results**: View quiz results immediately after submission.
+- **Responsive Design**: Optimized for desktop and tablet views.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠 Tech Stack
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS
+- **UI Components**: Shadcn UI (Radix UI)
+- **Icons**: Lucide React
+- **API Client**: Axios
+- **State Management**: React Hooks
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🏗 Architecture
+The project follows a modular structure:
+- `app/`: Next.js App Router pages and layouts.
+- `components/`: Reusable UI components.
+- `features/`: Feature-specific components (e.g., Admin tables).
+- `lib/`: API clients and utility functions.
+- `types/`: TypeScript definitions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📡 API Integration
+The web frontend communicates with the [Java Spring Boot Backend](file:///e:/Academic/CoU/Y2S1/OOP/Lab%20Projects/Online%20Quiz%20Management%20System/backend).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ Getting Started
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔗 Repository Links
+- **Backend:** [https://github.com/FardinMahadi/Online-Quiz-Management-System---backend](https://github.com/FardinMahadi/Online-Quiz-Management-System---backend)
+- **Mobile Frontend (React Native):** [https://github.com/FardinMahadi/Online-Quiz-Management-System-mobile-frontend](https://github.com/FardinMahadi/Online-Quiz-Management-System-mobile-frontend)
