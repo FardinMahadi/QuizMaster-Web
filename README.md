@@ -1,4 +1,4 @@
-# Online Quiz Management System - Web Frontend
+# QuizMaster-Web (Online Quiz Management System)
 
 ## 📌 Project Overview
 The web frontend for the Online Quiz Management System, built with **Next.js**, **Tailwind CSS**, and **Shadcn UI**. It provides a comprehensive dashboard for both students and administrators.
@@ -40,5 +40,5 @@ The web frontend communicates with the [Java Spring Boot Backend](file:///e:/Aca
 3. Open [http://localhost:3000](http://localhost:3000) to see the result.
 
 ## 🔗 Repository Links
-- **Backend:** [https://github.com/FardinMahadi/Online-Quiz-Management-System---backend](https://github.com/FardinMahadi/Online-Quiz-Management-System---backend)
-- **Mobile Frontend (React Native):** [https://github.com/FardinMahadi/Online-Quiz-Management-System-mobile-frontend](https://github.com/FardinMahadi/Online-Quiz-Management-System-mobile-frontend)
+- **Backend (API):** [https://github.com/FardinMahadi/QuizMaster-API](https://github.com/FardinMahadi/QuizMaster-API)
+- **Mobile Frontend (React Native):** [https://github.com/FardinMahadi/QuizMaster-Mobile](https://github.com/FardinMahadi/QuizMaster-Mobile)
