@@ -26,7 +26,19 @@ export default function QuizPage() {
         if (isSubmitting) return;
         setIsSubmitting(true);
         try {
-            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const userStr = localStorage.getItem('user');
+            if (!userStr) {
+                toast.error('User not found. Please log in again.');
+                router.push('/login');
+                return;
+            }
+            const user = JSON.parse(userStr);
+            if (!user.id) {
+                toast.error('Invalid user session. Please log in again.');
+                router.push('/login');
+                return;
+            }
+
             const submission: QuizSubmission = {
                 quizId: Number(quizId),
                 answers: Object.entries(answers).map(([qId, val]) => ({

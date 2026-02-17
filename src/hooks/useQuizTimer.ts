@@ -14,18 +14,19 @@ export function useQuizTimer(initialMinutes: number, onTimeUp: () => void) {
     useEffect(() => {
         if (timeLeft === 0) {
             onTimeUp();
+            return;
         }
         
-        if (timeLeft === null || timeLeft === 0) {
-            return () => {};
+        if (timeLeft === null) {
+            return;
         }
 
         const timer = setInterval(() => {
-            setTimeLeft(prev => (prev !== null ? prev - 1 : null));
+            setTimeLeft(prev => (prev !== null && prev > 0 ? prev - 1 : prev));
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [timeLeft, onTimeUp]);
+    }, [timeLeft === 0, onTimeUp]);
 
     return {
         timeLeft,
