@@ -5,7 +5,6 @@ import type { Result } from '@/types';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { studentApi } from '@/lib/api';
-import Navbar from '@/components/Navbar';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -15,14 +14,20 @@ import { Table, TableRow, TableBody, TableCell, TableHead, TableHeader } from '@
 // Badge is not installed yet, I'll use a simple div if badge fails or install it.
 // Actually, I'll just use a styled div for now to avoid another install step if not strictly needed.
 
+import { useAppSelector } from '@/lib/redux/hooks';
+import { Skeleton } from '@/components/ui/skeleton';
+
 export default function StudentResultsPage() {
     const router = useRouter();
+    const { user } = useAppSelector((state) => state.auth);
     const [results, setResults] = useState<Result[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchResults = async () => {
+            if (!user) return;
+            setIsLoading(true);
             try {
-                const user = JSON.parse(localStorage.getItem('user') || '{}');
                 const res = await studentApi.getMyResults(user.id);
                 setResults(res.data);
             } catch (error) {
@@ -31,14 +36,15 @@ export default function StudentResultsPage() {
                 } else {
                     toast.error('An unexpected error occurred');
                 }
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchResults();
-    }, []);
+    }, [user]);
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navbar />
             <main className="container mx-auto px-4 py-8">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
                     <div>
@@ -65,28 +71,40 @@ export default function StudentResultsPage() {
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
-                                        {results.map((result) => {
-                                            const percentage = (result.score / result.totalMarks) * 100;
-                                            return (
-                                                <TableRow key={result.id}>
-                                                    <TableCell className="font-medium">{result.quizTitle}</TableCell>
-                                                    <TableCell className="hidden sm:table-cell">{result.score} / {result.totalMarks}</TableCell>
-                                                    <TableCell>{percentage.toFixed(1)}%</TableCell>
-                                                    <TableCell className="hidden md:table-cell">{new Date(result.submittedAt).toLocaleDateString()}</TableCell>
-                                                    <TableCell>
-                                                        <div className={`inline-flex px-2 py-1 rounded text-xs font-semibold ${percentage >= 40 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                                                            {percentage >= 40 ? 'PASSED' : 'FAILED'}
-                                                        </div>
-                                                    </TableCell>
-                                                    <TableCell className="text-right">
-                                                        <Button size="sm" variant="ghost" onClick={() => router.push(`/student/results/${result.id}`)}>
-                                                            View Details
-                                                        </Button>
-                                                    </TableCell>
+                                        {isLoading ? (
+                                            Array.from({ length: 5 }).map((_, i) => (
+                                                <TableRow key={i}>
+                                                    <TableCell><Skeleton className="h-5 w-48" /></TableCell>
+                                                    <TableCell className="hidden sm:table-cell"><Skeleton className="h-5 w-16" /></TableCell>
+                                                    <TableCell><Skeleton className="h-5 w-16" /></TableCell>
+                                                    <TableCell className="hidden md:table-cell"><Skeleton className="h-5 w-24" /></TableCell>
+                                                    <TableCell><Skeleton className="h-5 w-16" /></TableCell>
+                                                    <TableCell className="text-right"><Skeleton className="h-8 w-24 ml-auto" /></TableCell>
                                                 </TableRow>
-                                            );
-                                        })}
-                                        {results.length === 0 && (
+                                            ))
+                                        ) : results.length > 0 ? (
+                                            results.map((result) => {
+                                                const percentage = (result.score / result.totalMarks) * 100;
+                                                return (
+                                                    <TableRow key={result.id}>
+                                                        <TableCell className="font-medium">{result.quizTitle}</TableCell>
+                                                        <TableCell className="hidden sm:table-cell">{result.score} / {result.totalMarks}</TableCell>
+                                                        <TableCell>{percentage.toFixed(1)}%</TableCell>
+                                                        <TableCell className="hidden md:table-cell">{new Date(result.submittedAt).toLocaleDateString()}</TableCell>
+                                                        <TableCell>
+                                                            <div className={`inline-flex px-2 py-1 rounded text-xs font-semibold ${percentage >= 40 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                                                {percentage >= 40 ? 'PASSED' : 'FAILED'}
+                                                            </div>
+                                                        </TableCell>
+                                                        <TableCell className="text-right">
+                                                            <Button size="sm" variant="ghost" onClick={() => router.push(`/student/results/${result.id}`)}>
+                                                                View Details
+                                                            </Button>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                );
+                                            })
+                                        ) : (
                                             <TableRow>
                                                 <TableCell colSpan={6} className="text-center py-8 text-gray-500">
                                                     You haven&apos;t taken any quizzes yet.

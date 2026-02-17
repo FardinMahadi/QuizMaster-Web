@@ -10,11 +10,15 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle, CardFooter, CardHeader,CardContent, CardDescription } from '@/components/ui/card';
 
+import { useAppDispatch } from '@/lib/redux/hooks';
+import { setUser } from '@/lib/redux/features/authSlice';
+
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,7 +26,7 @@ export default function LoginPage() {
         try {
             const res = await authApi.login({ email, password });
             const user = res.data;
-            localStorage.setItem('user', JSON.stringify(user));
+            dispatch(setUser(user));
             toast.success('Login Successful!');
             router.push('/');
         } catch (error) {

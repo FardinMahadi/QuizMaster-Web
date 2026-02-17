@@ -6,7 +6,6 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import dynamic from 'next/dynamic';
 import { adminApi } from '@/lib/api';
-import Navbar from '@/components/Navbar';
 import { useState, useEffect, useCallback } from 'react';
 import { SubjectTable } from '@/features/admin/SubjectTable';
 import { Card, CardTitle, CardHeader, CardContent } from '@/components/ui/card';
@@ -54,7 +53,6 @@ export default function AdminDashboard() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navbar />
             <main className="container mx-auto px-4 py-8">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
                     <div>

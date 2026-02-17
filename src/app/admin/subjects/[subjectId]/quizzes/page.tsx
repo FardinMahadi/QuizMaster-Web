@@ -7,7 +7,6 @@ import type { Quiz } from '@/types';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { adminApi } from '@/lib/api';
-import Navbar from '@/components/Navbar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -77,7 +76,6 @@ export default function AdminQuizzesPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navbar />
             <main className="container mx-auto px-4 py-8">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
                     <div className="flex items-center gap-4">

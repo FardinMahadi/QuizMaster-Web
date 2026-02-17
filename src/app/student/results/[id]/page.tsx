@@ -3,7 +3,6 @@
 import type { Result } from '@/types';
 
 import { studentApi } from '@/lib/api';
-import Navbar from '@/components/Navbar';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useParams, useRouter } from 'next/navigation';
@@ -33,7 +32,6 @@ export default function ResultDetailPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navbar />
             <main className="container mx-auto px-4 py-8 max-w-4xl">
                 <Button variant="ghost" className="mb-6" onClick={() => router.push('/student/results')}>
                     <ChevronLeft className="mr-2" size={16} /> Back to My Results

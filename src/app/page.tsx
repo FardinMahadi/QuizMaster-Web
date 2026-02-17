@@ -3,13 +3,14 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { useAppSelector } from '@/lib/redux/hooks';
+
 export default function LandingPage() {
     const router = useRouter();
+    const { user, isAuthenticated } = useAppSelector((state) => state.auth);
 
     useEffect(() => {
-        const userJson = localStorage.getItem('user');
-        if (userJson) {
-            const user = JSON.parse(userJson);
+        if (isAuthenticated && user) {
             if (user.role === 'ADMIN') {
                 router.push('/admin/dashboard');
             } else {
@@ -18,7 +19,7 @@ export default function LandingPage() {
         } else {
             router.push('/login');
         }
-    }, [router]);
+    }, [router, user, isAuthenticated]);
 
     return (
         <div className="flex items-center justify-center min-h-screen">

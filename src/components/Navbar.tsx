@@ -6,25 +6,28 @@ import { authApi } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { X, Menu, User, LogOut } from 'lucide-react';
+import { logout } from '@/lib/redux/features/authSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
 
 export default function Navbar() {
     const router = useRouter();
+    const dispatch = useAppDispatch();
+    const { user, isAuthenticated } = useAppSelector((state) => state.auth);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : null;
 
     const handleLogout = async () => {
         try {
             await authApi.logout();
-            localStorage.removeItem('user');
+            dispatch(logout());
             toast.success('Logged out successfully');
             router.push('/login');
         } catch {
-            localStorage.removeItem('user');
+            dispatch(logout());
             router.push('/login');
         }
     };
 
-    if (!user?.name) return null;
+    if (!isAuthenticated || !user) return null;
 
     const navLinks = user.role === 'ADMIN' ? [
         { label: 'Subjects', href: '/admin/dashboard' },

@@ -5,7 +5,6 @@ import type { Quiz, QuizSubmission } from '@/types';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { studentApi } from '@/lib/api';
-import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { CardFooter } from '@/components/ui/card';
 import { useQuizTimer } from '@/hooks/useQuizTimer';
@@ -14,31 +13,21 @@ import { useState,useEffect, useCallback } from 'react';
 import { QuestionCard } from '@/features/quiz/QuestionCard';
 import { Send, Timer,ChevronLeft, ChevronRight } from 'lucide-react';
 
+import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
+import { setActiveQuiz, setAnswer, setSubmitting } from '@/lib/redux/features/quizSlice';
+
 export default function QuizPage() {
     const { quizId } = useParams();
     const router = useRouter();
-    const [quiz, setQuiz] = useState<Quiz | null>(null);
-    const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
-    const [answers, setAnswers] = useState<Record<number, string>>({});
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const dispatch = useAppDispatch();
+    
+    const { user } = useAppSelector((state) => state.auth);
+    const { activeQuiz: quiz, answers, isSubmitting } = useAppSelector((state) => state.quiz);
 
     const handleSubmit = useCallback(async () => {
-        if (isSubmitting) return;
-        setIsSubmitting(true);
+        if (isSubmitting || !user) return;
+        dispatch(setSubmitting(true));
         try {
-            const userStr = localStorage.getItem('user');
-            if (!userStr) {
-                toast.error('User not found. Please log in again.');
-                router.push('/login');
-                return;
-            }
-            const user = JSON.parse(userStr);
-            if (!user.id) {
-                toast.error('Invalid user session. Please log in again.');
-                router.push('/login');
-                return;
-            }
-
             const submission: QuizSubmission = {
                 quizId: Number(quizId),
                 answers: Object.entries(answers).map(([qId, val]) => ({
@@ -56,16 +45,18 @@ export default function QuizPage() {
                 toast.error('An unexpected error occurred');
             }
         } finally {
-            setIsSubmitting(false);
+            dispatch(setSubmitting(false));
         }
-    }, [isSubmitting, quizId, answers, router]);
+    }, [isSubmitting, quizId, answers, router, user, dispatch]);
 
-    const { formattedTime, isCritical } = useQuizTimer(quiz?.durationMinutes || 0, handleSubmit);
+    const { formattedTime, isCritical } = useQuizTimer(quiz?.questions?.length || 0, handleSubmit);
+
+    const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
 
     const fetchQuiz = useCallback(async () => {
         try {
             const res = await studentApi.startQuiz(Number(quizId));
-            setQuiz(res.data);
+            dispatch(setActiveQuiz(res.data));
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data?.message || 'Failed to start quiz');
@@ -74,14 +65,14 @@ export default function QuizPage() {
             }
             router.push('/student/dashboard');
         }
-    }, [quizId, router]);
+    }, [quizId, router, dispatch]);
 
     useEffect(() => {
         fetchQuiz();
     }, [fetchQuiz]);
 
     const handleAnswerChange = (qId: number, value: string) => {
-        setAnswers(prev => ({ ...prev, [qId]: value }));
+        dispatch(setAnswer({ questionId: qId, answer: value }));
     };
 
     if (!quiz) return <div className="flex items-center justify-center min-h-screen">Loading quiz...</div>;
@@ -90,7 +81,6 @@ export default function QuizPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navbar />
             <main className="container mx-auto px-4 py-8">
                 <div className="max-w-3xl mx-auto">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
@@ -107,7 +97,7 @@ export default function QuizPage() {
                         </div>
                     </div>
 
-                    {currentQuestion && (
+                    {currentQuestion ? (
                         <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
                             <QuestionCard 
                                 question={currentQuestion}
@@ -133,6 +123,13 @@ export default function QuizPage() {
                                     </Button>
                                 )}
                             </CardFooter>
+                        </div>
+                    ) : (
+                        <div className="bg-white p-8 rounded-xl shadow-sm border text-center">
+                            <p className="text-gray-500 italic">No questions found for this quiz.</p>
+                            <Button className="mt-4" variant="outline" onClick={() => router.push('/student/dashboard')}>
+                                Back to Dashboard
+                            </Button>
                         </div>
                     )}
                     

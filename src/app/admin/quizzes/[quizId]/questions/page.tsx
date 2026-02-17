@@ -5,7 +5,6 @@ import type { Question } from '@/types';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { adminApi } from '@/lib/api';
-import Navbar from '@/components/Navbar';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useParams, useRouter } from 'next/navigation';
@@ -49,7 +48,6 @@ export default function AdminQuestionsPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navbar />
             <main className="container mx-auto px-4 py-8">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
                     <div className="flex items-center gap-4">

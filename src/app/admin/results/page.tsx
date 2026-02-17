@@ -1,23 +1,24 @@
 'use client';
 
 import type { Result } from '@/types';
-
 import axios from 'axios';
 import { toast } from 'sonner';
 import { adminApi } from '@/lib/api';
-import Navbar from '@/components/Navbar';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardTitle,CardHeader, CardContent } from '@/components/ui/card';
 import { Table, TableRow, TableBody, TableCell, TableHead, TableHeader } from '@/components/ui/table';
 
 export default function AdminResultsPage() {
     const router = useRouter();
     const [results, setResults] = useState<Result[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchResults = async () => {
+            setIsLoading(true);
             try {
                 const res = await adminApi.getAllResults();
                 setResults(res.data);
@@ -27,6 +28,8 @@ export default function AdminResultsPage() {
                 } else {
                     toast.error('An unexpected error occurred');
                 }
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchResults();
@@ -34,7 +37,6 @@ export default function AdminResultsPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navbar />
             <main className="container mx-auto px-4 py-8">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold">Quiz Results</h1>
@@ -59,24 +61,36 @@ export default function AdminResultsPage() {
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
-                                        {results.map((result) => {
-                                            const percentage = (result.score / result.totalMarks) * 100;
-                                            return (
-                                                <TableRow key={result.id}>
-                                                    <TableCell className="font-medium">{result.studentName}</TableCell>
-                                                    <TableCell>{result.quizTitle}</TableCell>
-                                                    <TableCell className="hidden sm:table-cell">{result.score} / {result.totalMarks}</TableCell>
-                                                    <TableCell>{percentage.toFixed(1)}%</TableCell>
-                                                    <TableCell className="hidden md:table-cell">{new Date(result.submittedAt).toLocaleDateString()}</TableCell>
-                                                    <TableCell className="text-right">
-                                                        <Button size="sm" variant="ghost" onClick={() => router.push(`/student/results/${result.id}`)}>
-                                                            View Details
-                                                        </Button>
-                                                    </TableCell>
+                                        {isLoading ? (
+                                            Array.from({ length: 5 }).map((_, i) => (
+                                                <TableRow key={i}>
+                                                    <TableCell><Skeleton className="h-5 w-32" /></TableCell>
+                                                    <TableCell><Skeleton className="h-5 w-48" /></TableCell>
+                                                    <TableCell className="hidden sm:table-cell"><Skeleton className="h-5 w-16" /></TableCell>
+                                                    <TableCell><Skeleton className="h-5 w-16" /></TableCell>
+                                                    <TableCell className="hidden md:table-cell"><Skeleton className="h-5 w-24" /></TableCell>
+                                                    <TableCell className="text-right"><Skeleton className="h-8 w-24 ml-auto" /></TableCell>
                                                 </TableRow>
-                                            );
-                                        })}
-                                        {results.length === 0 && (
+                                            ))
+                                        ) : results.length > 0 ? (
+                                            results.map((result) => {
+                                                const percentage = (result.score / result.totalMarks) * 100;
+                                                return (
+                                                    <TableRow key={result.id}>
+                                                        <TableCell className="font-medium">{result.studentName}</TableCell>
+                                                        <TableCell>{result.quizTitle}</TableCell>
+                                                        <TableCell className="hidden sm:table-cell">{result.score} / {result.totalMarks}</TableCell>
+                                                        <TableCell>{percentage.toFixed(1)}%</TableCell>
+                                                        <TableCell className="hidden md:table-cell">{new Date(result.submittedAt).toLocaleDateString()}</TableCell>
+                                                        <TableCell className="text-right">
+                                                            <Button size="sm" variant="ghost" onClick={() => router.push(`/student/results/${result.id}`)}>
+                                                                View Details
+                                                            </Button>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                );
+                                            })
+                                        ) : (
                                             <TableRow>
                                                 <TableCell colSpan={6} className="text-center py-8 text-gray-500">
                                                     No quiz submissions found.

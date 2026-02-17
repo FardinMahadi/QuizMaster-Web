@@ -3,7 +3,13 @@
 import { useState,useEffect, useCallback } from 'react';
 
 export function useQuizTimer(initialMinutes: number, onTimeUp: () => void) {
-    const [timeLeft, setTimeLeft] = useState<number | null>(initialMinutes * 60);
+    const [timeLeft, setTimeLeft] = useState<number | null>(null);
+
+    useEffect(() => {
+        if (initialMinutes > 0) {
+            setTimeLeft(initialMinutes * 60);
+        }
+    }, [initialMinutes]);
 
     const formatTime = useCallback((seconds: number) => {
         const mins = Math.floor(seconds / 60);
