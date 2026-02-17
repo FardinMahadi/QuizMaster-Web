@@ -56,6 +56,8 @@ export default function QuizPage() {
     const fetchQuiz = useCallback(async () => {
         try {
             const res = await studentApi.startQuiz(Number(quizId));
+            const questionsCount = res.data.questions?.length || 0;
+            toast.info(`Loaded ${questionsCount} questions`);
             dispatch(setActiveQuiz(res.data));
         } catch (error) {
             if (axios.isAxiosError(error)) {
