@@ -37,14 +37,18 @@ export const authSlice = createSlice({
       state.isAuthenticated = !!action.payload;
       if (action.payload) {
         localStorage.setItem('user', JSON.stringify(action.payload));
+        // Add cookie for middleware access (expires in 7 days)
+        document.cookie = `user=${JSON.stringify(action.payload)}; path=/; max-age=${7 * 24 * 60 * 60}`;
       } else {
         localStorage.removeItem('user');
+        document.cookie = 'user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
       }
     },
     logout: (state) => {
       state.user = null;
       state.isAuthenticated = false;
       localStorage.removeItem('user');
+      document.cookie = 'user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;

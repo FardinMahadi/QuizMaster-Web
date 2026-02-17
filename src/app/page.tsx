@@ -13,14 +13,9 @@ export default function LandingPage() {
     const { user, isAuthenticated, isLoading } = useAppSelector((state) => state.auth);
 
     useEffect(() => {
-        if (!isLoading && isAuthenticated && user) {
-            if (user.role === 'ADMIN') {
-                router.push('/admin/dashboard');
-            } else {
-                router.push('/student/dashboard');
-            }
-        }
-    }, [router, user, isAuthenticated, isLoading]);
+        // Redirection is now handled by src/middleware.ts
+        console.log('LandingPage initialized', { isLoading, isAuthenticated, user });
+    }, [user, isAuthenticated, isLoading]);
 
     if (isLoading) {
         return (
