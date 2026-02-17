@@ -1,4 +1,4 @@
-name: Vercel Deployment
+name: Prosnokorta Deployment
 
 on:
   push:

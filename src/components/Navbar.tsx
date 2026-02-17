@@ -40,7 +40,7 @@ export default function Navbar() {
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-8">
                         <div className="font-bold text-xl cursor-pointer text-primary" onClick={() => router.push('/')}>
-                            QuizMaster
+                            Prosnokorta
                         </div>
                         {/* Desktop Links */}
                         <div className="hidden md:flex gap-1">

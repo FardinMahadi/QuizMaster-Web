@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Online Quiz Management System",
+  title: "Prosnokorta",
   description: "A modern platform for managing and taking quizzes.",
 };
 

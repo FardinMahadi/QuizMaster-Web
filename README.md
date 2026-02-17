@@ -1,7 +1,7 @@
-# QuizMaster-Web (Online Quiz Management System)
+# Prosnokorta
 
 ## 📌 Project Overview
-The web frontend for the Online Quiz Management System, built with **Next.js**, **Tailwind CSS**, and **Shadcn UI**. It provides a comprehensive dashboard for both students and administrators.
+The web frontend for Prosnokorta, built with **Next.js**, **Tailwind CSS**, and **Shadcn UI**. It provides a comprehensive dashboard for both students and administrators.
 
 ## 🚀 Features
 - **Student Dashboard**: Browse subjects, view available quizzes, and attempt them.
@@ -26,7 +26,7 @@ The project follows a modular structure:
 - `types/`: TypeScript definitions.
 
 ## 📡 API Integration
-The web frontend communicates with the [Java Spring Boot Backend](file:///e:/Academic/CoU/Y2S1/OOP/Lab%20Projects/Online%20Quiz%20Management%20System/backend).
+The web frontend communicates with the Prosnokorta Backend.
 
 ## ⚙️ Getting Started
 1. Install dependencies:
@@ -40,5 +40,5 @@ The web frontend communicates with the [Java Spring Boot Backend](file:///e:/Aca
 3. Open [http://localhost:3000](http://localhost:3000) to see the result.
 
 ## 🔗 Repository Links
-- **Backend (API):** [https://github.com/FardinMahadi/QuizMaster-API](https://github.com/FardinMahadi/QuizMaster-API)
-- **Mobile Frontend (React Native):** [https://github.com/FardinMahadi/QuizMaster-Mobile](https://github.com/FardinMahadi/QuizMaster-Mobile)
+- **Backend (API):** [https://github.com/FardinMahadi/Prosnokorta-API](https://github.com/FardinMahadi/QuizMaster-API)
+- **Mobile Frontend (React Native):** [https://github.com/FardinMahadi/Prosnokorta-Mobile](https://github.com/FardinMahadi/QuizMaster-Mobile)
