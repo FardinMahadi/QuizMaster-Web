@@ -12,21 +12,20 @@ export function useQuizTimer(initialMinutes: number, onTimeUp: () => void) {
     }, []);
 
     useEffect(() => {
+        let timer: NodeJS.Timeout | null = null;
+
         if (timeLeft === 0) {
             onTimeUp();
-            return;
-        }
-        
-        if (timeLeft === null) {
-            return;
+        } else if (timeLeft !== null) {
+            timer = setInterval(() => {
+                setTimeLeft(prev => (prev !== null && prev > 0 ? prev - 1 : prev));
+            }, 1000);
         }
 
-        const timer = setInterval(() => {
-            setTimeLeft(prev => (prev !== null && prev > 0 ? prev - 1 : prev));
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, [timeLeft === 0, onTimeUp]);
+        return () => {
+            if (timer) clearInterval(timer);
+        };
+    }, [timeLeft, onTimeUp]);
 
     return {
         timeLeft,

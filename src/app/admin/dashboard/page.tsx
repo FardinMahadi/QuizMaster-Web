@@ -7,9 +7,9 @@ import { toast } from 'sonner';
 import dynamic from 'next/dynamic';
 import { adminApi } from '@/lib/api';
 import Navbar from '@/components/Navbar';
-import { useState,useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { SubjectTable } from '@/features/admin/SubjectTable';
-import { Card, CardTitle,CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardTitle, CardHeader, CardContent } from '@/components/ui/card';
 
 // Dynamically import the dialog to reduce initial bundle size
 const CreateSubjectDialog = dynamic(() => import('@/features/admin/CreateSubjectDialog').then(mod => mod.CreateSubjectDialog), {
