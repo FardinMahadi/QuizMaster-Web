@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   description: "A modern platform for managing and taking quizzes.",
 };
 
-import ReduxProvider from "@/components/providers/ReduxProvider";
 import Navbar from "@/components/Navbar";
+import ReduxProvider from "@/components/providers/ReduxProvider";
 
 export default function RootLayout({
   children,
@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning={true}
+        suppressHydrationWarning
       >
         <ReduxProvider>
           <Navbar />

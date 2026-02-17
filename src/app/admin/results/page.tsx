@@ -1,6 +1,7 @@
 'use client';
 
 import type { Result } from '@/types';
+
 import axios from 'axios';
 import { toast } from 'sonner';
 import { adminApi } from '@/lib/api';

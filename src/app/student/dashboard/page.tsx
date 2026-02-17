@@ -1,15 +1,16 @@
 'use client';
 
 import type { Quiz,Subject } from '@/types';
+
 import axios from 'axios';
 import { toast } from 'sonner';
 import { studentApi } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useState,useEffect, useCallback } from 'react';
 import { Trophy,BookOpen, ArrowRight } from 'lucide-react';
 import { Card, CardTitle, CardFooter, CardHeader,CardContent, CardDescription } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
 
 export default function StudentDashboard() {
     const [subjects, setSubjects] = useState<Subject[]>([]);

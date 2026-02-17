@@ -8,14 +8,12 @@ import { studentApi } from '@/lib/api';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardTitle,CardHeader, CardContent } from '@/components/ui/card';
-import { Table, TableRow, TableBody, TableCell, TableHead, TableHeader } from '@/components/ui/table';
-
-// Badge is not installed yet, I'll use a simple div if badge fails or install it.
-// Actually, I'll just use a styled div for now to avoid another install step if not strictly needed.
-
 import { useAppSelector } from '@/lib/redux/hooks';
 import { Skeleton } from '@/components/ui/skeleton';
+// Badge is not installed yet, I'll use a simple div if badge fails or install it.
+// Actually, I'll just use a styled div for now to avoid another install step if not strictly needed.
+import { Card, CardTitle,CardHeader, CardContent } from '@/components/ui/card';
+import { Table, TableRow, TableBody, TableCell, TableHead, TableHeader } from '@/components/ui/table';
 
 export default function StudentResultsPage() {
     const router = useRouter();

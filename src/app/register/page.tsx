@@ -8,10 +8,9 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Card, CardTitle, CardFooter, CardHeader,CardContent, CardDescription } from '@/components/ui/card';
-
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { setUser } from '@/lib/redux/features/authSlice';
+import { Card, CardTitle, CardFooter, CardHeader,CardContent, CardDescription } from '@/components/ui/card';
 
 export default function RegisterPage() {
     const [name, setName] = useState('');

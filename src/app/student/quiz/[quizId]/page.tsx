@@ -1,6 +1,6 @@
 'use client';
 
-import type { Quiz, QuizSubmission } from '@/types';
+import type { QuizSubmission } from '@/types';
 
 import axios from 'axios';
 import { toast } from 'sonner';
@@ -11,10 +11,9 @@ import { useQuizTimer } from '@/hooks/useQuizTimer';
 import { useParams, useRouter } from 'next/navigation';
 import { useState,useEffect, useCallback } from 'react';
 import { QuestionCard } from '@/features/quiz/QuestionCard';
-import { Send, Timer,ChevronLeft, ChevronRight } from 'lucide-react';
-
 import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
-import { setActiveQuiz, setAnswer, setSubmitting } from '@/lib/redux/features/quizSlice';
+import { Send, Timer,ChevronLeft, ChevronRight } from 'lucide-react';
+import { setAnswer, setActiveQuiz, setSubmitting } from '@/lib/redux/features/quizSlice';
 
 export default function QuizPage() {
     const { quizId } = useParams();

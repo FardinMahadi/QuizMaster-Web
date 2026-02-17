@@ -1,5 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { Quiz } from '@/types';
+import type { PayloadAction } from '@reduxjs/toolkit';
+
+import { createSlice } from '@reduxjs/toolkit';
 
 interface QuizState {
   activeQuiz: Quiz | null;
